@@ -1,0 +1,53 @@
+import * as vscode from "vscode";
+import { getFunctionName } from "./get-function-name";
+import path, { dirname } from "path";
+import { SupportedTestFramework } from "./get-test-framework";
+import { getDefaultTestFileContent } from "./get-default-test-file-content";
+
+export const createTestFile = async (
+  code: string,
+  folder: vscode.Uri,
+  testFramework: SupportedTestFramework,
+  fileExtension = "ts"
+) => {
+  let functionName = "";
+  try {
+    functionName = getFunctionName(code);
+    console.log("Function name: ", functionName);
+  } catch (error) {
+    if (error instanceof Error) {
+      vscode.window.showErrorMessage(error.message);
+      return;
+    }
+  }
+
+  const configuration = vscode.workspace.getConfiguration("createTestFile");
+  const workspaceEdit = new vscode.WorkspaceEdit();
+  const dirPath = dirname(folder.fsPath);
+  const folderPath = vscode.Uri.file(dirPath);
+  const fileName = path
+    .basename(folder.fsPath)
+    .replace(`.${fileExtension}`, "");
+  const testSuffix = configuration
+    .get("testFileSuffix")
+    ?.toString()
+    .replace(".", "");
+  const filePath = vscode.Uri.joinPath(
+    folderPath,
+    `${fileName}.${testSuffix}.${fileExtension}`
+  );
+
+  workspaceEdit.createFile(filePath, { ignoreIfExists: true });
+
+  const content = getDefaultTestFileContent(
+    testFramework,
+    functionName,
+    fileName
+  );
+
+  workspaceEdit.insert(filePath, new vscode.Position(0, 0), content);
+  await vscode.workspace.applyEdit(workspaceEdit);
+
+  const doc = await vscode.workspace.openTextDocument(filePath);
+  vscode.window.showTextDocument(doc);
+};

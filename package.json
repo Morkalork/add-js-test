@@ -1,0 +1,73 @@
+{
+  "name": "create-test-file",
+  "displayName": "create-test-file",
+  "description": "An extension for creating a test file for a code file.",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.88.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [],
+  "main": "./out/extension.js",
+  "contributes": {
+    "configuration": {
+      "type": "object",
+      "title": "Create Test File",
+      "properties": {
+        "createTestFile.testFileSuffix": {
+          "type": "string",
+          "default": ".test",
+          "description": "The suffix to add to the test file. Commonly either .test or .spec, but totally up to you!"
+        },
+        "createTestFile.testFramework": {
+          "type": "string",
+          "default": "",
+          "description": "Currently supports vitest, jest and mocha. If set to nothing, it will be inferred from the project."
+        }
+      }
+    },
+    "typescriptServerPlugins": [
+      {
+        "name": "typescript-styled-plugin"
+      }
+    ],
+    "commands": [
+      {
+        "command": "create-test-file.createTestFile",
+        "title": "Create Test File"
+      }
+    ],
+    "menus": {
+      "explorer/context": [
+        {
+          "when": "resourceLangId == typescript || resourceLangId == javascript",
+          "command": "create-test-file.createTestFile",
+          "group": "navigation"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src --ext ts"
+  },
+  "devDependencies": {
+    "@types/mocha": "^10.0.6",
+    "@types/node": "18.x",
+    "@types/vscode": "^1.88.0",
+    "@typescript-eslint/eslint-plugin": "^7.7.1",
+    "@typescript-eslint/parser": "^7.7.1",
+    "eslint": "^8.57.0",
+    "typescript": "^5.4.5"
+  },
+  "dependencies": {
+    "@babel/parser": "^7.24.4",
+    "recast": "^0.23.6",
+    "zod": "^3.23.4"
+  }
+}
