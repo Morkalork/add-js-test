@@ -1,8 +1,10 @@
 # Add Test README
 
-![Add Test Logo](.public/add-test-logo.png)
+Add Test is an extension that allows for you to add a test file for a javascript/typescript-module using either jest or vitest. By right-clicking on the module and selecting Add Test this extension will analyze your file and create the appropriate, corresponding test file for your module. 
 
-Add Test is an extension that allows for you to add a test file for a javascript/typescript-module using either jest or vitest. By right-clicking on the module and selecting Add Test this extension will analyze your file and create the appropriate, corresponding test file for your module.
+# Usage
+
+![How to use Add Test](.public/add-test-hello-world.gif)
 
 # What?
 
@@ -33,20 +35,18 @@ describe("fatArrowDeclaration", () => {
 });
 ```
 
-Now, were you to use JavaScript instead of TypeScript, the appropriate extension will be used. And if you use jest instead of vitest, that will be imported.
+Now, were you to use JavaScript instead of TypeScript, the appropriate extension will be used. And if you use jest instead of vitest, that will be imported. 
 
 # Development
 
 If you want to fork this, or contribute, just clone the repository and:
 
 Install the dependencies
-
 ```bash
 npm init
 ```
 
 Then either run the dev watch:
-
 ```bash
 npm run watch
 ```

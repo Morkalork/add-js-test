@@ -7,7 +7,18 @@
     "vscode": "^1.88.0"
   },
   "categories": [
-    "Other"
+    "Testing"
+  ],
+  "keywords": [
+    "test",
+    "test framework",
+    "testing",
+    "jest",
+    "vitest",
+    "mocha",
+    "typescript",
+    "javascript",
+    "ts"
   ],
   "repository": {
     "type": "git",
@@ -59,6 +70,7 @@
   },
   "scripts": {
     "vscode:prepublish": "npm run compile",
+    "release": "vsce package && vsce publish",
     "compile": "tsc -p ./",
     "watch": "tsc -watch -p ./",
     "pretest": "npm run compile && npm run lint",
