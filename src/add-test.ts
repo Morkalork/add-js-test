@@ -4,7 +4,7 @@ import path, { dirname } from "path";
 import { SupportedTestFramework } from "./get-test-framework";
 import { getDefaultTestFileContent } from "./get-default-test-file-content";
 
-export const createTestFile = async (
+export const addTest = async (
   code: string,
   folder: vscode.Uri,
   testFramework: SupportedTestFramework,
@@ -21,7 +21,7 @@ export const createTestFile = async (
     }
   }
 
-  const configuration = vscode.workspace.getConfiguration("createTestFile");
+  const configuration = vscode.workspace.getConfiguration("addTest");
   const workspaceEdit = new vscode.WorkspaceEdit();
   const dirPath = dirname(folder.fsPath);
   const folderPath = vscode.Uri.file(dirPath);

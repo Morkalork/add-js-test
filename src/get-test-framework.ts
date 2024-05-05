@@ -13,7 +13,7 @@ export type SupportedTestFramework = z.infer<
 >;
 
 export const getTestFramework = async (): Promise<SupportedTestFramework> => {
-  const configuration = vscode.workspace.getConfiguration("createTestFile");
+  const configuration = vscode.workspace.getConfiguration("addTest");
   const testFrameworkData = configuration.get("testFramework");
 
   const configuredTestFramework =

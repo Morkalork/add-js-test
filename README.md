@@ -1,6 +1,6 @@
-# Create Test File README
+# Add Test README
 
-Create Test File is an extension that allows for you to create a test file for a javascript/typescript-module using either jest or vitest. By right-clicking on the module and selecting Create Test File this extension will analyze your file and create the appropriate, corresponding test file for your module. 
+Add Test is an extension that allows for you to create a test file for a javascript/typescript-module using either jest or vitest. By right-clicking on the module and selecting Create Test File this extension will analyze your file and create the appropriate, corresponding test file for your module. 
 
 # What?
 
@@ -17,7 +17,7 @@ const someNonExportedFunction = () => {
 };
 ```
 
-If you right-click on the file that contains this module and select Create Test File, the following file will be generated:
+If you right-click on the file that contains this module and select Add Test, the following file will be generated:
 
 ```typescript
 // fat-arrow-declaration.test.ts

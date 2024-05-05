@@ -1,10 +1,10 @@
 import * as vscode from "vscode";
-import { createTestFile } from "./create-test-file.js";
+import { addTest } from "./add-test.js";
 import { getTestFramework } from "./get-test-framework.js";
 
 export const activate = (context: vscode.ExtensionContext) => {
   let disposable = vscode.commands.registerCommand(
-    "create-test-file.createTestFile",
+    "add-test.addTest",
     async (commandInfo) => {
       const uri = vscode.Uri.parse(commandInfo.path);
       const doc = await vscode.workspace.openTextDocument(uri);
@@ -15,7 +15,7 @@ export const activate = (context: vscode.ExtensionContext) => {
         vscode.window.showErrorMessage("Could not determine test framework.");
         return;
       }
-      createTestFile(text, uri, testFramework, fileExtension);
+      addTest(text, uri, testFramework, fileExtension);
     }
   );
 

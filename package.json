@@ -1,27 +1,32 @@
 {
-  "name": "create-test-file",
-  "displayName": "create-test-file",
-  "description": "An extension for creating a test file for a code file.",
-  "version": "0.0.1",
+  "name": "add-test",
+  "displayName": "Add Test",
+  "description": "An extension for adding a test file for a code file.",
+  "version": "0.1.0",
   "engines": {
     "vscode": "^1.88.0"
   },
   "categories": [
     "Other"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Morkalork/add-test"
+  },
   "activationEvents": [],
+  "publisher": "Morkalork",
   "main": "./out/extension.js",
   "contributes": {
     "configuration": {
       "type": "object",
-      "title": "Create Test File",
+      "title": "Add Test",
       "properties": {
-        "createTestFile.testFileSuffix": {
+        "addTest.testFileSuffix": {
           "type": "string",
           "default": ".test",
           "description": "The suffix to add to the test file. Commonly either .test or .spec, but totally up to you!"
         },
-        "createTestFile.testFramework": {
+        "addTest.testFramework": {
           "type": "string",
           "default": "",
           "description": "Currently supports vitest, jest and mocha. If set to nothing, it will be inferred from the project."
@@ -35,15 +40,15 @@
     ],
     "commands": [
       {
-        "command": "create-test-file.createTestFile",
-        "title": "Create Test File"
+        "command": "add-test.addTest",
+        "title": "Add Test"
       }
     ],
     "menus": {
       "explorer/context": [
         {
           "when": "resourceLangId == typescript || resourceLangId == javascript",
-          "command": "create-test-file.createTestFile",
+          "command": "add-test.addTest",
           "group": "navigation"
         }
       ]
