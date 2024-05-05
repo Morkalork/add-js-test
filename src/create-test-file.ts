@@ -1,5 +1,5 @@
 import * as vscode from "vscode";
-import { getFunctionName } from "./get-function-name";
+import { FunctionNameDefinition, getFunctionName } from "./get-function-name";
 import path, { dirname } from "path";
 import { SupportedTestFramework } from "./get-test-framework";
 import { getDefaultTestFileContent } from "./get-default-test-file-content";
@@ -10,7 +10,7 @@ export const createTestFile = async (
   testFramework: SupportedTestFramework,
   fileExtension = "ts"
 ) => {
-  let functionName = "";
+  let functionName: FunctionNameDefinition = { name: "" };
   try {
     functionName = getFunctionName(code);
     console.log("Function name: ", functionName);

@@ -1,12 +1,11 @@
 import { parse } from "recast";
 
-type ReturnType = {
+export type FunctionNameDefinition = {
   name: string;
-  type: string;
+  isClass?: boolean;
 };
-}
 
-export const getFunctionName = (code: string) => {
+export const getFunctionName = (code: string): FunctionNameDefinition => {
   const ast = parse(code, {
     parser: require("recast/parsers/typescript"),
   });
@@ -26,28 +25,43 @@ export const getFunctionName = (code: string) => {
   const exportedFunction = exportedFunctions[0];
   const declarations = exportedFunction.declaration.declarations;
   const type = exportedFunction.declaration.type;
+  const id = exportedFunction.declaration.id;
 
   if (type === "VariableDeclaration" || type === "FunctionDeclaration") {
-    // A normally declared function
-    const tooFewDeclarations = declarations.length < 1;
-    const tooManyDeclarations = declarations.length > 1;
-    if (tooFewDeclarations || tooManyDeclarations) {
-      throw new Error(
-        "This plugin only works with one exported function. Please remove any other function exports."
-      );
+    if (declarations) {
+      // A normally declared function
+      const tooFewDeclarations = declarations.length < 1;
+      const tooManyDeclarations = declarations.length > 1;
+      if (tooFewDeclarations || tooManyDeclarations) {
+        throw new Error(
+          "This plugin only works with one exported function. Please remove any other function exports."
+        );
+      }
+
+      return {
+        name: declarations[0].id.name,
+      };
     }
 
-    const constDeclaration = declarations[0];
-    return constDeclaration.id.name;
+    return {
+      name: id.name,
+    };
   }
 
-  if(exportedFunction.declaration.type === "ClassDeclaration") {
+  if (exportedFunction.declaration.type === "ClassDeclaration") {
     const className = exportedFunction.declaration.id.name;
-    return className;
+    return {
+      name: className,
+      isClass: true,
+    };
   }
 
   const namedFunction = exportedFunction.declaration.id.name;
   if (namedFunction) {
     return namedFunction;
   }
+
+  return {
+    name: "unknown",
+  };
 };

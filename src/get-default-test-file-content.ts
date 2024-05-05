@@ -1,14 +1,22 @@
+import { FunctionNameDefinition } from "./get-function-name";
 import { SupportedTestFramework } from "./get-test-framework";
 
 export const getDefaultTestFileContent = (
   testFramework: SupportedTestFramework,
-  functionName: string,
+  functionName: FunctionNameDefinition,
   fileName: string
-) => `import { ${functionName} } from "./${fileName}";
+) => {
+  const { name, isClass } = functionName;
+  const functionDeclaration = isClass
+    ? `new ${functionName.name}()`
+    : `${functionName.name}()`;
+
+  return `import { ${name} } from "./${fileName}";
 import { describe, expect, it } from "${testFramework}";
 
-describe("${functionName}", () => {
+describe("${name}", () => {
     it("should work", () => {
-        expect(${functionName}()).not.toBeNull();
+        expect(${functionDeclaration}).not.toBeNull();
     });
 });`;
+};

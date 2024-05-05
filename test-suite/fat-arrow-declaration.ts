@@ -1,8 +1,7 @@
 export const fatArrowDeclaration = () => {
-    return someNonExportedFunction();
-  };
-  
-  const someNonExportedFunction = () => {
-    return 666;
-  };
-  
+  return someNonExportedFunction();
+};
+
+const someNonExportedFunction = () => {
+  return 666;
+};
