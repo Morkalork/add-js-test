@@ -39,10 +39,14 @@ export const addTest = async (
 
   workspaceEdit.createFile(filePath, { ignoreIfExists: true });
 
+  const useCommonJS = configuration.get("useCommonJS") as boolean;
+  const addImports = configuration.get("addImports") as boolean;
   const content = getDefaultTestFileContent(
     testFramework,
     functionName,
-    fileName
+    fileName,
+    useCommonJS,
+    addImports
   );
 
   workspaceEdit.insert(filePath, new vscode.Position(0, 0), content);

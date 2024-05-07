@@ -44,6 +44,16 @@
           "type": "string",
           "default": "",
           "description": "Currently supports vitest, jest and mocha. If set to nothing, it will be inferred from the project."
+        },
+        "addTest.addImports": {
+          "type": "boolean",
+          "default": true,
+          "description": "Set this to false if you import the test modules globally and not auto generate imports."
+        },
+        "addTest.useCommonJS": {
+          "type": "boolean",
+          "default": false,
+          "description": "Set this to true if you want to use CommonJS 'require' instead of ES6 'import'."
         }
       }
     },
