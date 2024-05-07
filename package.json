@@ -80,7 +80,8 @@
   },
   "scripts": {
     "vscode:prepublish": "npm run compile",
-    "release": "vsce package && vsce publish",
+    "release": "vsce package && vsce publish minor",
+    "release-major": "vsce package && vsce publish major",
     "compile": "tsc -p ./",
     "watch": "tsc -watch -p ./",
     "pretest": "npm run compile && npm run lint",
