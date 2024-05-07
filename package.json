@@ -80,7 +80,7 @@
   },
   "scripts": {
     "vscode:prepublish": "npm run compile",
-    "release": "vsce package && vsce publish patch",
+    "release": "vsce publish patch",
     "release-minor": "vsce package && vsce publish minor",
     "release-major": "vsce package && vsce publish major",
     "compile": "tsc -p ./",

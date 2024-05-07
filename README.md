@@ -23,8 +23,7 @@ If you right-click on the file that contains this module and select Add Test, th
 ```ts
 // my-fat-arrow-function.test.ts
 import { myFatArrowFunction } from "./my-fat-arrow-function";
-import { describe, it } from "mocha";
-import { expect } from "chai";
+import { describe, expect, it } from "vitest";
 
 describe("myFatArrowFunction", () => {
     it("should work", () => {
@@ -33,7 +32,7 @@ describe("myFatArrowFunction", () => {
 });
 ```
 
-Now, were you to use JavaScript instead of TypeScript, the appropriate extension will be used. And if you use jest instead of vitest, that will be imported. 
+Now, were you to use JavaScript instead of TypeScript, the appropriate extension will be used. And if you use jest or mocha instead of vitest, that will be imported. 
 
 # Development
 
