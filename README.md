@@ -1,6 +1,6 @@
 # Add Test README
 
-Add Test is an extension that allows for you to add a test file for a javascript/typescript-module using either jest or vitest. By right-clicking on the module and selecting Add Test this extension will analyze your file and create the appropriate, corresponding test file for your module. 
+Add Test is an extension that quickly adds a template test file for a javascript/typescript-module using either jest, vitest or mocha/chai. By right-clicking on a module and selecting Add Test this extension will analyze your file and create the appropriate, corresponding test file for your module. 
 
 # Usage
 
@@ -10,28 +10,26 @@ Add Test is an extension that allows for you to add a test file for a javascript
 
 Let's say that you have this file in your project:
 
-```typescript
-// fat-arrow-declaration.ts
-export const fatArrowDeclaration = () => {
-  return someNonExportedFunction();
+```ts
+// my-fat-arrow-function.ts
+export const myFatArrowFunction = () => {
+  return "Hello, World!";
 };
 
-const someNonExportedFunction = () => {
-  return 666;
-};
 ```
 
 If you right-click on the file that contains this module and select Add Test, the following file will be generated:
 
-```typescript
-// fat-arrow-declaration.test.ts
-import { fatArrowDeclaration } from "./fat-arrow-declaration";
-import { describe, expect, it } from "vitest";
+```ts
+// my-fat-arrow-function.test.ts
+import { myFatArrowFunction } from "./my-fat-arrow-function";
+import { describe, it } from "mocha";
+import { expect } from "chai";
 
-describe("fatArrowDeclaration", () => {
-  it("should work", () => {
-    expect(fatArrowDeclaration()).not.toBeNull();
-  });
+describe("myFatArrowFunction", () => {
+    it("should work", () => {
+        expect(myFatArrowFunction()).not.toBeNull();
+    });
 });
 ```
 
