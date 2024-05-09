@@ -13,7 +13,6 @@ export const addTest = async (
   let functionName: FunctionNameDefinition = { name: "" };
   try {
     functionName = getFunctionName(code);
-    console.log("Function name: ", functionName);
   } catch (error) {
     if (error instanceof Error) {
       vscode.window.showErrorMessage(error.message);
