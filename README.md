@@ -34,6 +34,15 @@ describe("myFatArrowFunction", () => {
 
 Now, were you to use JavaScript instead of TypeScript, the appropriate extension will be used. And if you use jest or mocha instead of vitest, that will be imported. 
 
+# Key bindings
+
+The command is automatically bound to the short cut `ctrl+shift+t`, but can easily be changed by going to File -> Preferences -> Keyboard Shortcuts and search for add-test, this should give you this view:
+
+![The keyboard shortcuts for add-test](.public/add-keyboard-shortcuts.png)
+
+To change this binding, right-click on the row and select `Change keybinding` and enter the new command you want. 
+
+
 # Development
 
 If you want to fork this, or contribute, just clone the repository and:

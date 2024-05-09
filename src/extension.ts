@@ -5,9 +5,16 @@ import { getTestFramework } from "./get-test-framework.js";
 export const activate = (context: vscode.ExtensionContext) => {
   let disposable = vscode.commands.registerCommand(
     "add-test.addTest",
-    async (commandInfo) => {
-      const uri = vscode.Uri.parse(commandInfo.path);
-      const doc = await vscode.workspace.openTextDocument(uri);
+    async () => {
+      const currentlyOpenFile = vscode.window.activeTextEditor?.document;
+      const currentlyOpenFileUri = currentlyOpenFile?.uri;
+      if (!currentlyOpenFileUri) {
+        vscode.window.showErrorMessage(
+          "Could not determine file to add test to."
+        );
+        return;
+      }
+      const doc = await vscode.workspace.openTextDocument(currentlyOpenFileUri);
       const text = doc.getText();
       const fileExtension = doc.fileName.split(".").pop();
       const testFramework = await getTestFramework();
@@ -15,7 +22,7 @@ export const activate = (context: vscode.ExtensionContext) => {
         vscode.window.showErrorMessage("Could not determine test framework.");
         return;
       }
-      addTest(text, uri, testFramework, fileExtension);
+      addTest(text, currentlyOpenFileUri, testFramework, fileExtension);
     }
   );
 

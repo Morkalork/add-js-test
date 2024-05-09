@@ -25,7 +25,6 @@
     "url": "https://github.com/Morkalork/add-test"
   },
   "icon": ".public/add-test-logo.png",
-  "activationEvents": [],
   "author": "Morkalork",
   "publisher": "Morkalork",
   "license": "MIT",
@@ -76,8 +75,19 @@
           "group": "navigation"
         }
       ]
-    }
+    },
+    "keybindings": [
+      {
+        "command": "add-test.addTest",
+        "key": "ctrl+shift+t",
+        "mac": "cmd+shift+t",
+        "when": "editorTextFocus"
+      }
+    ]
   },
+  "activationEvents": [
+    "onCommand:add-test.addTest"
+  ],
   "scripts": {
     "vscode:prepublish": "npm run compile",
     "release": "vsce publish patch",
