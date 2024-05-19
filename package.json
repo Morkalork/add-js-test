@@ -36,18 +36,23 @@
       "properties": {
         "addTest.testFileSuffix": {
           "type": "string",
-          "default": ".test",
+          "default": "test",
           "description": "The suffix to add to the test file. Commonly either .test or .spec, but totally up to you!"
         },
-        "addTest.testFramework": {
+        "addTest.unitTestFramework": {
           "type": "string",
           "default": "",
           "description": "Currently supports vitest, jest and mocha. If set to nothing, it will be inferred from the project."
         },
-        "addTest.addImports": {
+        "addTest.integrationTestFramework": {
+          "type": "string",
+          "default": "@testing-library/react",
+          "description": "Currently supports testing-library/react. If set to nothing, it will be inferred from the project."
+        },
+        "addTest.skipImports": {
           "type": "boolean",
-          "default": true,
-          "description": "Set this to false if you import the test modules globally and not auto generate imports."
+          "default": false,
+          "description": "Leave out the test library imports."
         },
         "addTest.useCommonJS": {
           "type": "boolean",
@@ -65,6 +70,10 @@
       {
         "command": "add-test.addTest",
         "title": "Add Test"
+      },
+      {
+        "command": "add-test.addReactComponentTest",
+        "title": "Add React Component Test"
       }
     ],
     "menus": {
@@ -72,6 +81,11 @@
         {
           "when": "resourceLangId == typescript || resourceLangId == javascript",
           "command": "add-test.addTest",
+          "group": "navigation"
+        },
+        {
+          "when": "resourceLangId == typescriptreact || resourceLangId == javascriptreact",
+          "command": "add-test.addReactComponentTest",
           "group": "navigation"
         }
       ]
@@ -96,15 +110,22 @@
     "compile": "tsc -p ./",
     "watch": "tsc -watch -p ./",
     "pretest": "npm run compile && npm run lint",
-    "lint": "eslint src --ext ts"
+    "lint": "eslint src --ext ts",
+    "test": "jest"
   },
   "devDependencies": {
-    "@types/mocha": "^10.0.6",
-    "@types/node": "18.x",
+    "@babel/types": "^7.24.5",
+    "@jest/globals": "^29.7.0",
+    "@types/jest": "^29.5.12",
+    "@types/node": "^18.19.33",
     "@types/vscode": "^1.88.0",
     "@typescript-eslint/eslint-plugin": "^7.7.1",
     "@typescript-eslint/parser": "^7.7.1",
     "eslint": "^8.57.0",
+    "jest": "^29.7.0",
+    "jest-mock-extended": "^3.0.7",
+    "jest-mock-vscode": "^3.0.3",
+    "ts-jest": "^29.1.2",
     "typescript": "^5.4.5"
   },
   "dependencies": {

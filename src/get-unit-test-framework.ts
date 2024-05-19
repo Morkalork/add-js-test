@@ -1,23 +1,22 @@
 import * as vscode from "vscode";
 import { z } from "zod";
 
-const SupportedTestFrameworkSchema = z.union([
+const SupportedUnitTestFrameworkSchema = z.union([
   z.literal("unknown"),
   z.literal("jest"),
   z.literal("vitest"),
   z.literal("mocha"),
 ]);
 
-export type SupportedTestFramework = z.infer<
-  typeof SupportedTestFrameworkSchema
+export type SupportedUnitTestFramework = z.infer<
+  typeof SupportedUnitTestFrameworkSchema
 >;
 
-export const getTestFramework = async (): Promise<SupportedTestFramework> => {
-  const configuration = vscode.workspace.getConfiguration("addTest");
-  const testFrameworkData = configuration.get("testFramework");
-
+export const getUnitTestFramework = async (
+  testFrameworkData: string
+): Promise<SupportedUnitTestFramework> => {
   const configuredTestFramework =
-    SupportedTestFrameworkSchema.safeParse(testFrameworkData);
+    SupportedUnitTestFrameworkSchema.safeParse(testFrameworkData);
   if (configuredTestFramework.success) {
     return configuredTestFramework.data;
   }

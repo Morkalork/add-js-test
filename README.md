@@ -60,3 +60,11 @@ npm run watch
 Or just make your changes and, if you're running VS Code while developing this, _WHICH I REALLY SUGGEST YOU DO_, then press F5 to build and run it in a new instance of VS Code.
 
 There are test files available in the ./test-suite-folder in this repo, you can use these to test various use-cases. And if you're missing a case, then new additions are always welcome!
+
+# Documentation
+
+Here are some links to documentation that may be of assistance:
+
+ * Type documentation for babel: https://babeljs.io/docs/babel-types
+ * Basic VS Code extension development: https://code.visualstudio.com/api/get-started/your-first-extension
+ * More fundamentals: https://snyk.io/blog/modern-vs-code-extension-development-basics/

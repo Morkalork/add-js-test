@@ -1,32 +1,67 @@
 import * as vscode from "vscode";
-import { addTest } from "./add-test.js";
-import { getTestFramework } from "./get-test-framework.js";
+import { getUnitTestFramework } from "./get-unit-test-framework.js";
+import { parseTextDocument } from "./utils/parse-text-document.js";
+import { getIntegrationTestFramework } from "./get-integration-test-framework.js";
+import { addTestContent } from "./add-test-content.js";
 
 export const activate = (context: vscode.ExtensionContext) => {
-  let disposable = vscode.commands.registerCommand(
+  let disposableJSTS = vscode.commands.registerCommand(
     "add-test.addTest",
     async () => {
-      const currentlyOpenFile = vscode.window.activeTextEditor?.document;
-      const currentlyOpenFileUri = currentlyOpenFile?.uri;
-      if (!currentlyOpenFileUri) {
-        vscode.window.showErrorMessage(
-          "Could not determine file to add test to."
-        );
-        return;
-      }
-      const doc = await vscode.workspace.openTextDocument(currentlyOpenFileUri);
-      const text = doc.getText();
-      const fileExtension = doc.fileName.split(".").pop();
-      const testFramework = await getTestFramework();
-      if (testFramework === "unknown") {
+      const doc = vscode.window.activeTextEditor?.document;
+      const { text, fileExtension, currentlyOpenFileUri } =
+        await parseTextDocument(doc);
+
+      const configuration = vscode.workspace.getConfiguration("addTest");
+      const testFrameworkData =
+        configuration.get<string>("unitTestFramework") || "";
+
+      const unitTestFramework = await getUnitTestFramework(testFrameworkData);
+      if (unitTestFramework === "unknown") {
         vscode.window.showErrorMessage("Could not determine test framework.");
         return;
       }
-      addTest(text, currentlyOpenFileUri, testFramework, fileExtension);
+      addTestContent(
+        text,
+        currentlyOpenFileUri,
+        unitTestFramework,
+        fileExtension,
+        "unit"
+      );
     }
   );
 
-  context.subscriptions.push(disposable);
+  context.subscriptions.push(disposableJSTS);
+
+  let disposableJSXTSX = vscode.commands.registerCommand(
+    "add-test.addReactComponentTest",
+    async () => {
+      const doc = vscode.window.activeTextEditor?.document;
+      const { text, fileExtension, currentlyOpenFileUri } =
+        await parseTextDocument(doc);
+      const configuration = vscode.workspace.getConfiguration("addTest");
+      const testFrameworkData =
+        configuration.get<string>("integrationTestFramework") || "";
+      const integrationTestFramework = await getIntegrationTestFramework(
+        testFrameworkData
+      );
+
+      if (integrationTestFramework === "unknown") {
+        vscode.window.showErrorMessage("Could not determine test framework.");
+        return;
+      }
+
+      addTestContent(
+        text,
+        currentlyOpenFileUri,
+        integrationTestFramework,
+        fileExtension,
+        "integration"
+      );
+    }
+  );
+
+  context.subscriptions.push(disposableJSXTSX);
 };
 
 // This method is called when your extension is deactivated

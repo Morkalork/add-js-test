@@ -1,10 +1,10 @@
-import { FunctionNameDefinition } from "./get-function-name";
-import { SupportedTestFramework } from "./get-test-framework";
+import { FunctionNameDefinition } from "./utils/get-function-or-class-name";
+import { SupportedUnitTestFramework } from "./get-unit-test-framework";
 
 const getImportStatement = (
   name: string,
   fileName: string,
-  testFramework: SupportedTestFramework,
+  testFramework: SupportedUnitTestFramework,
   useCommonJS: boolean
 ) => {
   const baseImport = useCommonJS
@@ -12,6 +12,11 @@ const getImportStatement = (
     : `import { ${name} } from "./${fileName}";\n`;
   switch (testFramework) {
     case "jest":
+      if (useCommonJS) {
+        return `${baseImport}const { describe, expect, it } = require("@jest/globals");`;
+      } else {
+        return `${baseImport}import { describe, expect, it } from "@jest/globals";`;
+      }
     case "vitest":
       if (useCommonJS) {
         return `${baseImport}const { describe, expect, it } = require("${testFramework}");`;
@@ -35,17 +40,17 @@ import { expect } from "chai";`;
   }
 };
 
-export const getDefaultTestFileContent = (
-  testFramework: SupportedTestFramework,
+export const getDefaultUnitTestFileContent = (
+  testFramework: SupportedUnitTestFramework,
   functionName: FunctionNameDefinition,
   fileName: string,
   useCommonJS: boolean,
-  addImports: boolean
+  skipImports: boolean
 ) => {
   const { name, isClass } = functionName;
-  const functionDeclaration = isClass
-    ? `new ${functionName.name}()`
-    : `${functionName.name}()`;
+  const functionDeclaration = isClass ? `new ${name}()` : `${name}()`;
+
+  const addImports = !skipImports; // This is good, readable coding, but it's not necessary
 
   return `${
     addImports && getImportStatement(name, fileName, testFramework, useCommonJS)
