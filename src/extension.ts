@@ -4,12 +4,29 @@ import { parseTextDocument } from "./utils/parse-text-document.js";
 import { addTestContent } from "./add-test-content.js";
 import { TestTypes } from "./types.js";
 import { getIntegrationTestFramework } from "./get-integration-test-framework.js";
+import fs from "fs";
 
-const triggerTest = async (frameworkType: TestTypes) => {
-  const doc = vscode.window.activeTextEditor?.document;
+const triggerTest = async (frameworkType: TestTypes, filePath: string) => {
   try {
-    const { text, fileExtension, currentlyOpenFileUri } =
-      await parseTextDocument(doc);
+    let text = "";
+    let fileExtension = "";
+    let currentlyOpenFileUri = vscode.Uri.file("");
+
+    if (filePath) {
+      text = fs.readFileSync(filePath, "utf8");
+      fileExtension = filePath.split(".").pop() || "";
+      currentlyOpenFileUri = vscode.Uri.file(filePath);
+    } else {
+      const document = vscode.window.activeTextEditor?.document;
+      const documentInfo = await parseTextDocument(document);
+      text = documentInfo.text;
+      fileExtension = documentInfo.fileExtension || "";
+      currentlyOpenFileUri = documentInfo.currentlyOpenFileUri;
+    }
+
+    if (!fileExtension) {
+      fileExtension = "js";
+    }
 
     const configuration = vscode.workspace.getConfiguration("addTest");
     const unitTestFrameworkData = configuration.get<string>("unit") || "";
@@ -50,11 +67,13 @@ const triggerTest = async (frameworkType: TestTypes) => {
   }
 };
 
+type CommandInfoType = {};
+
 export const activate = (context: vscode.ExtensionContext) => {
   let disposableJSTS = vscode.commands.registerCommand(
     "add-test.addTest",
-    async (commandInfo: any) => {
-      triggerTest("unit");
+    async (commandInfo) => {
+      triggerTest("unit", commandInfo?.fsPath);
     }
   );
 
@@ -62,8 +81,8 @@ export const activate = (context: vscode.ExtensionContext) => {
 
   let disposableJSXTSX = vscode.commands.registerCommand(
     "add-test.addReactComponentTest",
-    async () => {
-      triggerTest("integration");
+    async (commandInfo) => {
+      triggerTest("integration", commandInfo?.fsPath);
     }
   );
 
