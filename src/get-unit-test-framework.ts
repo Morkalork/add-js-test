@@ -1,5 +1,6 @@
 import * as vscode from "vscode";
 import { z } from "zod";
+import { getRootWorkspaceFolder } from "./utils/get-root-workspace-folder";
 
 const SupportedUnitTestFrameworkSchema = z.union([
   z.literal("unknown"),
@@ -21,21 +22,12 @@ export const getUnitTestFramework = async (
     return configuredTestFramework.data;
   }
 
-  if (!vscode.workspace.workspaceFolders) {
-    vscode.window.showErrorMessage(
-      "This extension requires an open workspace."
-    );
+  const rootWorkspaceFolder = getRootWorkspaceFolder();
+  if (!rootWorkspaceFolder) {
     return "unknown";
   }
 
-  if (vscode.workspace.workspaceFolders.length > 1) {
-    vscode.window.showErrorMessage(
-      "This extension does not support multi-root workspaces."
-    );
-    return "unknown";
-  }
-
-  const rootPath = vscode.workspace.workspaceFolders[0].uri;
+  const rootPath = rootWorkspaceFolder.uri;
   const packageJsonPath = vscode.Uri.joinPath(rootPath, "package.json");
   const packageJsonBuffer = await vscode.workspace.fs.readFile(packageJsonPath);
   const packageJsonContent = Buffer.from(packageJsonBuffer).toString("utf8");

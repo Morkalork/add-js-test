@@ -22,7 +22,8 @@ const getConfigurationName = (type: TestTypes) => {
 export const addTestContent = async (
   code: string,
   folder: vscode.Uri,
-  testFramework: SupportedUnitTestFramework | SupportedIntegrationTestFramework,
+  unitTestFramework: SupportedUnitTestFramework,
+  integrationTestFramework: SupportedIntegrationTestFramework,
   fileExtension = "ts",
   testType: TestTypes
 ) => {
@@ -59,24 +60,27 @@ export const addTestContent = async (
   const useCommonJS = configuration.get("useCommonJS") as boolean;
   const skipImports = configuration.get("skipImports") as boolean;
 
+  const addImports = !skipImports; // This is good, readable coding, but it's not necessary
+
   let content: string = "";
   switch (testType) {
     case "unit":
       content = getDefaultUnitTestFileContent(
-        testFramework as SupportedUnitTestFramework,
+        unitTestFramework,
         functionOrComponentName,
         fileName,
         useCommonJS,
-        skipImports
+        addImports
       );
       break;
     case "integration":
       content = getDefaultIntegrationTestFileContent(
-        testFramework as SupportedIntegrationTestFramework,
+        integrationTestFramework,
+        unitTestFramework,
         functionOrComponentName,
         fileName,
         useCommonJS,
-        skipImports
+        addImports
       );
       break;
   }
