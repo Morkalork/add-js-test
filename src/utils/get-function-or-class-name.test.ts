@@ -31,7 +31,6 @@ describe("getFunctionOrClassName", () => {
   it("should handle all described cases", () => {
     Object.entries(testCases).forEach(
       ([key, { name, isClass, hasMultipleExports, hasNoExport, code }]) => {
-        console.log({ key, code });
         if (hasMultipleExports || hasNoExport) {
           expect(() => getFunctionOrClassName(code)).toThrowError();
         } else {

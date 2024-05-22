@@ -19,8 +19,7 @@ const getAdditionalImports = (
 
   switch (integrationTestFramework) {
     case "@testing-library/react":
-      return `${baseImport}\nimport { render, screen } from "@testing-library/react";\n
-import "@testing-library/jest-dom";
+      return `${baseImport}\nimport { render, screen } from "@testing-library/react";\nimport "@testing-library/jest-dom";\n
       `;
     case "enzyme":
       return `${baseImport}\nimport { shallow } from "enzyme";\nimport { describe, expect } from 'chai';\n
@@ -52,9 +51,7 @@ export const getDefaultIntegrationTestFileContent = (
 
   switch (integrationTestFramework) {
     case "@testing-library/react":
-      return `${imports}
-
-describe("should render", async () => {
+      return `${imports}describe("should render", async () => {
   it("should render", () => {
     render(<${name} />);
     screen.debug();
@@ -62,9 +59,7 @@ describe("should render", async () => {
 });
       `;
     case "enzyme":
-      return `${imports}
-
-describe("${name}", () => {
+      return `${imports}describe("${name}", () => {
   it("should render", () => {
     const wrapper = shallow(<${name} />);
     expect(wrapper.exists()).to.be.true;

@@ -13,29 +13,30 @@ export const getSupportImports = (
   switch (unitTestFramework) {
     case "jest":
       if (useCommonJS) {
-        return `${baseImport}const { describe, expect, it } = require("@jest/globals");`;
+        return `${baseImport}const { describe, expect, it } = require("@jest/globals");\n`;
       } else {
-        return `${baseImport}import { describe, expect, it } from "@jest/globals";`;
+        return `${baseImport}import { describe, expect, it } from "@jest/globals";\n`;
       }
     case "vitest":
       if (useCommonJS) {
-        return `${baseImport}const { describe, expect, it } = require("${unitTestFramework}");`;
+        return `${baseImport}const { describe, expect, it } = require("${unitTestFramework}");\n`;
       } else {
-        return `${baseImport}import { describe, expect, it } from "${unitTestFramework}";`;
+        return `${baseImport}import { describe, expect, it } from "${unitTestFramework}";\n`;
       }
     case "mocha":
       if (useCommonJS) {
         return `${baseImport}const { describe, it } = require("${unitTestFramework}");
-const expect = require("chai").expect;`;
+const expect = require("chai").expect;\n`;
       } else {
         return `${baseImport}import { describe, it } from "${unitTestFramework}";
-import { expect } from "chai";`;
+import { expect } from "chai";\n`;
       }
     default:
       if (useCommonJS) {
-        return `${baseImport}const { describe, expect, it } = require("unknown");`;
+        return `${baseImport}const { describe, expect, it } = require("unknown");\n`;
       } else {
-        return `${baseImport}import { describe, expect, it } from "unknown";`;
+        return `${baseImport}import { describe, expect, it } from "unknown";\n
+        `;
       }
   }
 };

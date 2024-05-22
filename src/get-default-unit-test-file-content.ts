@@ -11,12 +11,11 @@ export const getDefaultUnitTestFileContent = (
 ) => {
   const { name, isClass } = functionName;
   const functionDeclaration = isClass ? `new ${name}()` : `${name}()`;
+  const imports = addImports
+    ? getSupportImports(name, fileName, testFramework, useCommonJS) + "\n"
+    : "";
 
-  return `${
-    addImports && getSupportImports(name, fileName, testFramework, useCommonJS)
-  }
-
-describe("${name}", () => {
+  return `${imports}describe("${name}", () => {
     it("should work", () => {
         expect(${functionDeclaration}).not.toBeNull();
     });
