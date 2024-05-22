@@ -99,9 +99,6 @@
       }
     ]
   },
-  "activationEvents": [
-    "onCommand:add-test.addTest"
-  ],
   "scripts": {
     "vscode:prepublish": "npm run compile",
     "release": "vsce publish patch",
