@@ -42,7 +42,7 @@ export const addTestContent = async (
 
   const configurationName = getConfigurationName(testType);
 
-  const configuration = vscode.workspace.getConfiguration(configurationName);
+  const configuration = vscode.workspace.getConfiguration("addTest");
   const workspaceEdit = new vscode.WorkspaceEdit();
   const dirPath = dirname(folder.fsPath);
   const folderPath = vscode.Uri.file(dirPath);
