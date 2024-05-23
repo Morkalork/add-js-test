@@ -9,6 +9,7 @@ import { SupportedIntegrationTestFramework } from "./get-integration-test-framew
 import { TestTypes } from "./types";
 import { getDefaultIntegrationTestFileContent } from "./get-default-integration-test-file-content";
 import { SupportedUnitTestFramework } from "./get-unit-test-framework";
+import { logger } from "./utils/logger";
 
 const getConfigurationName = (type: TestTypes) => {
   switch (type) {
@@ -35,7 +36,7 @@ export const addTestContent = async (
     functionOrComponentName = getFunctionOrClassName(code);
   } catch (error) {
     if (error instanceof Error) {
-      vscode.window.showErrorMessage(error.message);
+      logger().showErrorMessage(error.message);
       return;
     }
   }

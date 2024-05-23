@@ -1,15 +1,14 @@
 import * as vscode from "vscode";
+import { logger } from "./logger";
 
 export const getRootWorkspaceFolder = () => {
   if (!vscode.workspace.workspaceFolders) {
-    vscode.window.showErrorMessage(
-      "This extension requires an open workspace."
-    );
+    logger().showErrorMessage("This extension requires an open workspace.");
     return;
   }
 
   if (vscode.workspace.workspaceFolders.length > 1) {
-    vscode.window.showErrorMessage(
+    logger().showErrorMessage(
       "This extension does not support multi-root workspaces."
     );
     return;

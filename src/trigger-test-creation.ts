@@ -5,6 +5,7 @@ import { getIntegrationTestFramework } from "./get-integration-test-framework";
 import { getUnitTestFramework } from "./get-unit-test-framework";
 import { TestTypes } from "./types";
 import { parseTextDocument } from "./utils/parse-text-document";
+import { logger } from "./utils/logger";
 
 export const triggerTestCreation = async (
   frameworkType: TestTypes,
@@ -14,6 +15,8 @@ export const triggerTestCreation = async (
     let text = "";
     let fileExtension = "";
     let currentlyOpenFileUri = vscode.Uri.file("");
+
+    logger().log(`Creating a ${frameworkType} test for ${filePath}`);
 
     if (filePath) {
       text = fs.readFileSync(filePath, "utf8");
@@ -36,7 +39,7 @@ export const triggerTestCreation = async (
 
     const unitTestFramework = await getUnitTestFramework(unitTestFrameworkData);
     if (unitTestFramework === "unknown") {
-      vscode.window.showErrorMessage("Could not determine test framework.");
+      logger().showErrorMessage("Could not determine test framework.");
       return;
     }
 
@@ -46,10 +49,12 @@ export const triggerTestCreation = async (
       integrationTestFrameworkData
     );
 
-    if (
-      integrationTestFramework === "unknown" &&
-      frameworkType === "integration"
-    ) {
+    const unknownIntegrationFramework =
+      integrationTestFramework === "unknown" && frameworkType === "integration";
+    if (unknownIntegrationFramework) {
+      logger().showErrorMessage(
+        "Could not determine test framework, aborting..."
+      );
       return;
     }
 
@@ -61,9 +66,15 @@ export const triggerTestCreation = async (
       fileExtension,
       frameworkType
     );
+
+    logger().log(
+      `Successfully created an ${frameworkType} test using ${
+        frameworkType === "unit" ? unitTestFramework : integrationTestFramework
+      } framework.`
+    );
   } catch (e) {
     if (e instanceof Error) {
-      vscode.window.showErrorMessage(
+      logger().showErrorMessage(
         `Failed to add a test due to "${e.message.toLocaleLowerCase()}".`
       );
     }
