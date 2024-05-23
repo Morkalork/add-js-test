@@ -11,15 +11,6 @@ import { getDefaultIntegrationTestFileContent } from "./get-default-integration-
 import { SupportedUnitTestFramework } from "./get-unit-test-framework";
 import { logger } from "./utils/logger";
 
-const getConfigurationName = (type: TestTypes) => {
-  switch (type) {
-    case "unit":
-      return "addUnitTest";
-    case "integration":
-      return "addIntegrationTest";
-  }
-};
-
 export const addTestContent = async (
   code: string,
   folder: vscode.Uri,
@@ -40,8 +31,6 @@ export const addTestContent = async (
       return;
     }
   }
-
-  const configurationName = getConfigurationName(testType);
 
   const configuration = vscode.workspace.getConfiguration("addTest");
   const workspaceEdit = new vscode.WorkspaceEdit();
