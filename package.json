@@ -99,6 +99,10 @@
       }
     ]
   },
+  "activationEvents": [
+    "onCommand:add-test.addTest",
+    "onCommand:add-test.addReactComponentTest"
+  ],
   "scripts": {
     "vscode:prepublish": "npm run compile",
     "release": "vsce publish patch",
