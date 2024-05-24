@@ -3,6 +3,8 @@ import { triggerTestCreation } from "./trigger-test-creation.js";
 import { logger } from "./utils/logger.js";
 
 export const activate = (context: vscode.ExtensionContext) => {
+  vscode.window.showInformationMessage("Add Test extension activated.");
+  logger().log("Add Test extension activated.");
   try {
     let disposableJSTS = vscode.commands.registerCommand(
       "add-test.addTest",
