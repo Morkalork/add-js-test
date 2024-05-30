@@ -1,37 +1,9 @@
 import { SupportedIntegrationTestFramework } from "./get-integration-test-framework";
-import { SupportedUnitTestFramework } from "./get-unit-test-framework";
 import { FunctionNameDefinition } from "./utils/get-function-or-class-name";
-import { getSupportImports } from "./utils/get-support-imports";
-
-const getAdditionalImports = (
-  unitTestFramework: SupportedUnitTestFramework,
-  integrationTestFramework: SupportedIntegrationTestFramework,
-  name: string,
-  fileName: string,
-  useCommonJS: boolean
-) => {
-  const baseImport = getSupportImports(
-    name,
-    fileName,
-    unitTestFramework,
-    useCommonJS
-  );
-
-  switch (integrationTestFramework) {
-    case "@testing-library/react":
-      return `${baseImport}\nimport { render, screen } from "@testing-library/react";\nimport "@testing-library/jest-dom";\n
-      `;
-    case "enzyme":
-      return `${baseImport}\nimport { shallow } from "enzyme";\nimport { describe, expect } from 'chai';\n
-      `;
-    default:
-      return baseImport;
-  }
-};
+import { getIntegrationTestSupportImports } from "./utils/get-integrations-test-support-imports";
 
 export const getDefaultIntegrationTestFileContent = (
   integrationTestFramework: SupportedIntegrationTestFramework,
-  unitTestFramework: SupportedUnitTestFramework,
   functionName: FunctionNameDefinition,
   fileName: string,
   useCommonJS: boolean,
@@ -40,11 +12,10 @@ export const getDefaultIntegrationTestFileContent = (
   const { name } = functionName;
 
   const imports = addImports
-    ? getAdditionalImports(
-        unitTestFramework,
-        integrationTestFramework,
+    ? getIntegrationTestSupportImports(
         name,
         fileName,
+        integrationTestFramework,
         useCommonJS
       )
     : "";

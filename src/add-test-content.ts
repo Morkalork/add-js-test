@@ -66,7 +66,6 @@ export const addTestContent = async (
     case "integration":
       content = getDefaultIntegrationTestFileContent(
         integrationTestFramework,
-        unitTestFramework,
         functionOrComponentName,
         fileName,
         useCommonJS,

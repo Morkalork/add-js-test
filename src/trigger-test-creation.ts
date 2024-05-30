@@ -7,6 +7,9 @@ import { TestTypes } from "./types";
 import { parseTextDocument } from "./utils/parse-text-document";
 import { logger } from "./utils/logger";
 
+const defaultUnitTestFramework = "vitest";
+const defaultIntegrationTestFramework = "@testing-library/react";
+
 export const triggerTestCreation = async (
   frameworkType: TestTypes,
   filePath: string
@@ -34,28 +37,25 @@ export const triggerTestCreation = async (
       fileExtension = "js";
     }
 
-    const configuration = vscode.workspace.getConfiguration("addTest");
-    const unitTestFrameworkData = configuration.get<string>("unit") || "";
-
-    const unitTestFramework = await getUnitTestFramework(unitTestFrameworkData);
-    if (unitTestFramework === "unknown") {
-      logger().showErrorMessage("Could not determine test framework.");
-      return;
+    let unitTestFramework = await getUnitTestFramework();
+    const isUnknownUnitTestFramework =
+      frameworkType === "unit" && unitTestFramework === "unknown";
+    if (isUnknownUnitTestFramework) {
+      logger().showErrorMessage(
+        `Could not determine unit test framework, defaulting to ${defaultUnitTestFramework}, this can be changed in settings.`
+      );
+      unitTestFramework = defaultUnitTestFramework;
     }
 
-    const integrationTestFrameworkData =
-      configuration.get<string>("integration") || "";
-    const integrationTestFramework = await getIntegrationTestFramework(
-      integrationTestFrameworkData
-    );
+    let integrationTestFramework = await getIntegrationTestFramework();
 
-    const unknownIntegrationFramework =
-      integrationTestFramework === "unknown" && frameworkType === "integration";
-    if (unknownIntegrationFramework) {
+    const isUnknownIntegrationFramework =
+      frameworkType === "integration" && integrationTestFramework === "unknown";
+    if (isUnknownIntegrationFramework) {
       logger().showErrorMessage(
-        "Could not determine test framework, aborting..."
+        `Could not determine integration test framework, defaulting to ${defaultUnitTestFramework}, this can be changed in settings.`
       );
-      return;
+      integrationTestFramework = defaultIntegrationTestFramework;
     }
 
     addTestContent(

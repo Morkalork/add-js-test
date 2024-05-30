@@ -58,6 +58,11 @@
           "type": "boolean",
           "default": false,
           "description": "Set this to true if you want to use CommonJS 'require' instead of ES6 'import'."
+        },
+        "addTest.subPathToPackageJson": {
+          "type": "string",
+          "default": "",
+          "description": "If your package.json is not in the root of your project, you can specify a subpath here. If you have a monorepo, you can specify the path to the package.json of the module you want to test."
         }
       }
     },
@@ -99,10 +104,6 @@
       }
     ]
   },
-  "activationEvents": [
-    "onCommand:add-test.addTest",
-    "onCommand:add-test.addReactComponentTest"
-  ],
   "scripts": {
     "vscode:prepublish": "npm run compile",
     "release": "vsce publish patch",

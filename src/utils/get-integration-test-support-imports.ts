@@ -1,6 +1,6 @@
 import { SupportedUnitTestFramework } from "../get-unit-test-framework";
 
-export const getSupportImports = (
+export const getUnitTestSupportImports = (
   name: string,
   fileName: string,
   unitTestFramework: SupportedUnitTestFramework,
