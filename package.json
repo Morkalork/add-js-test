@@ -2,7 +2,7 @@
   "name": "add-test",
   "displayName": "Add Test",
   "description": "Allows for you to add a test file for a code module.",
-  "version": "0.2.10",
+  "version": "0.2.11",
   "engines": {
     "vscode": "^1.88.0"
   },
