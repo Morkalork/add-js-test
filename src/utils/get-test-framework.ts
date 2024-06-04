@@ -15,7 +15,7 @@ export const getTestFramework = async <T>(
   supportedTestFrameworks: readonly T[],
   defaultValue: T
 ): Promise<T> => {
-  const configuration = vscode.workspace.getConfiguration("addTest");
+  const configuration = vscode.workspace.getConfiguration("addJsTest");
   const testFrameworkData = configuration.get<string>(typeOfTest) || "";
 
   const configuredTestFramework = testTypeParser(testFrameworkData);

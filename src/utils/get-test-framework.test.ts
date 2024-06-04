@@ -38,6 +38,7 @@ describe("getTestFramework", () => {
     const loggingToolsMock = jest.spyOn(loggingTools, "logger");
     loggingToolsMock.mockReturnValue({
       showErrorMessage: jest.fn(),
+      showInformationMessage: jest.fn(),
       log: jest.fn(),
       error: jest.fn(),
     });

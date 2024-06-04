@@ -1,13 +1,14 @@
 {
-  "name": "add-test",
-  "displayName": "Add Test",
-  "description": "Allows for you to add a test file for a code module.",
-  "version": "0.2.11",
+  "name": "add-js-test",
+  "displayName": "Add JS Test",
+  "description": "Allows for you to add a test file for a javascript code module.",
+  "version": "0.0.0",
   "engines": {
     "vscode": "^1.88.0"
   },
   "categories": [
-    "Testing"
+    "Testing",
+    "Extension Packs"
   ],
   "keywords": [
     "test",
@@ -22,9 +23,9 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/Morkalork/add-test"
+    "url": "https://github.com/Morkalork/add-js-test"
   },
-  "icon": ".public/add-test-logo.png",
+  "icon": ".public/add-js-test-logo.png",
   "author": "Morkalork",
   "publisher": "Morkalork",
   "license": "MIT",
@@ -34,32 +35,32 @@
       "type": "object",
       "title": "Add Test",
       "properties": {
-        "addTest.testFileSuffix": {
+        "addJsTest.testFileSuffix": {
           "type": "string",
           "default": "test",
           "description": "The suffix to add to the test file. Commonly either .test or .spec, but totally up to you!"
         },
-        "addTest.unitTestFramework": {
+        "addJsTest.unitTestFramework": {
           "type": "string",
           "default": "",
           "description": "Currently supports vitest, jest and mocha. If set to nothing, it will be inferred from the project."
         },
-        "addTest.integrationTestFramework": {
+        "addJsTest.integrationTestFramework": {
           "type": "string",
           "default": "@testing-library/react",
           "description": "Currently supports testing-library/react. If set to nothing, it will be inferred from the project."
         },
-        "addTest.skipImports": {
+        "addJsTest.skipImports": {
           "type": "boolean",
           "default": false,
           "description": "Leave out the test library imports."
         },
-        "addTest.useCommonJS": {
+        "addJsTest.useCommonJS": {
           "type": "boolean",
           "default": false,
           "description": "Set this to true if you want to use CommonJS 'require' instead of ES6 'import'."
         },
-        "addTest.subPathToPackageJson": {
+        "addJsTest.subPathToPackageJson": {
           "type": "string",
           "default": "",
           "description": "If your package.json is not in the root of your project, you can specify a subpath here. If you have a monorepo, you can specify the path to the package.json of the module you want to test."
@@ -73,11 +74,11 @@
     ],
     "commands": [
       {
-        "command": "add-test.addTest",
+        "command": "add-js-test.addJsTest",
         "title": "Add Test"
       },
       {
-        "command": "add-test.addReactComponentTest",
+        "command": "add-js-test.addReactComponentTest",
         "title": "Add React Component Test"
       }
     ],
@@ -85,19 +86,19 @@
       "explorer/context": [
         {
           "when": "resourceLangId == typescript || resourceLangId == javascript",
-          "command": "add-test.addTest",
+          "command": "add-js-test.addJsTest",
           "group": "navigation"
         },
         {
           "when": "resourceLangId == typescriptreact || resourceLangId == javascriptreact",
-          "command": "add-test.addReactComponentTest",
+          "command": "add-js-test.addReactComponentTest",
           "group": "navigation"
         }
       ]
     },
     "keybindings": [
       {
-        "command": "add-test.addTest",
+        "command": "add-js-test.addJsTest",
         "key": "ctrl+shift+t",
         "mac": "cmd+shift+t",
         "when": "editorTextFocus"

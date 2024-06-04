@@ -1,6 +1,6 @@
 import * as vscode from "vscode";
 import fs from "fs";
-import { addTestContent } from "./add-test-content";
+import { addJsTestContent } from "./add-js-test-content";
 import { getIntegrationTestFramework } from "./get-integration-test-framework";
 import { getUnitTestFramework } from "./get-unit-test-framework";
 import { TestTypes } from "./types";
@@ -58,7 +58,7 @@ export const triggerTestCreation = async (
       integrationTestFramework = defaultIntegrationTestFramework;
     }
 
-    addTestContent(
+    addJsTestContent(
       text,
       currentlyOpenFileUri,
       unitTestFramework,

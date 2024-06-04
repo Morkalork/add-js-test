@@ -11,7 +11,7 @@ import { getDefaultIntegrationTestFileContent } from "./get-default-integration-
 import { SupportedUnitTestFramework } from "./get-unit-test-framework";
 import { logger } from "./utils/logger";
 
-export const addTestContent = async (
+export const addJsTestContent = async (
   code: string,
   folder: vscode.Uri,
   unitTestFramework: SupportedUnitTestFramework,
@@ -32,7 +32,7 @@ export const addTestContent = async (
     }
   }
 
-  const configuration = vscode.workspace.getConfiguration("addTest");
+  const configuration = vscode.workspace.getConfiguration("addJsTest");
   const workspaceEdit = new vscode.WorkspaceEdit();
   const dirPath = dirname(folder.fsPath);
   const folderPath = vscode.Uri.file(dirPath);
