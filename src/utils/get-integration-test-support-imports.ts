@@ -4,11 +4,13 @@ export const getUnitTestSupportImports = (
   name: string,
   fileName: string,
   unitTestFramework: SupportedUnitTestFramework,
-  useCommonJS: boolean
+  useCommonJS: boolean,
+  isDefault?: boolean
 ) => {
+  const functionNameDeclaration = isDefault ? name : `{ ${name} }`;
   const baseImport = useCommonJS
-    ? `const { ${name} } = require("./${fileName}");\n`
-    : `import { ${name} } from "./${fileName}";\n`;
+    ? `const ${functionNameDeclaration} = require("./${fileName}");\n`
+    : `import ${functionNameDeclaration} from "./${fileName}";\n`;
 
   switch (unitTestFramework) {
     case "jest":

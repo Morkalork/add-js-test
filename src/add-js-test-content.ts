@@ -39,6 +39,12 @@ export const addJsTestContent = async (
   const fileName = path
     .basename(folder.fsPath)
     .replace(`.${fileExtension}`, "");
+
+  if (functionOrComponentName.isDefault) {
+    const changeCase = await import("change-case");
+    functionOrComponentName.name = changeCase.camelCase(fileName);
+  }
+
   const testSuffix = configuration.get("testFileSuffix")?.toString() || "test";
   const filePath = vscode.Uri.joinPath(
     folderPath,

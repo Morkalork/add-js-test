@@ -12,6 +12,7 @@ import { getTypeSafeNode } from "./get-type-safe-node";
 export type FunctionNameDefinition = {
   name: string;
   isClass?: boolean;
+  isDefault?: boolean;
 };
 
 export const getFunctionOrClassName = (
@@ -135,6 +136,18 @@ export const getFunctionOrClassName = (
       );
 
       result.name = identifier.name;
+    }
+  } else if (declaration.type === "ArrowFunctionExpression") {
+    const arrowFunction = getTypeSafeNode<FunctionDeclaration>(
+      declaration,
+      "ArrowFunctionExpression"
+    );
+    if (arrowFunction && arrowFunction.id) {
+      identifier = getTypeSafeNode<Identifier>(arrowFunction.id, "Identifier");
+
+      result.name = identifier.name;
+    } else {
+      result.isDefault = true;
     }
   } else if (declaration.type === "Identifier") {
     const identifierDeclaration = getTypeSafeNode<Identifier>(

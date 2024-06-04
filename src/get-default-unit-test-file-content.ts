@@ -9,10 +9,16 @@ export const getDefaultUnitTestFileContent = (
   useCommonJS: boolean,
   addImports: boolean
 ) => {
-  const { name, isClass } = functionName;
+  const { name, isClass, isDefault } = functionName;
   const functionDeclaration = isClass ? `new ${name}()` : `${name}()`;
   const imports = addImports
-    ? getUnitTestSupportImports(name, fileName, testFramework, useCommonJS) + "\n"
+    ? getUnitTestSupportImports(
+        name,
+        fileName,
+        testFramework,
+        useCommonJS,
+        isDefault
+      ) + "\n"
     : "";
 
   return `${imports}describe("${name}", () => {

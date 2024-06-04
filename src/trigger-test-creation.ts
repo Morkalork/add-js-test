@@ -19,11 +19,12 @@ export const triggerTestCreation = async (
     let fileExtension = "";
     let currentlyOpenFileUri = vscode.Uri.file("");
 
-    logger().log(`Creating a ${frameworkType} test for ${filePath}`);
-
     if (filePath) {
       text = fs.readFileSync(filePath, "utf8");
-      fileExtension = filePath.split(".").pop() || "";
+      const fileName = filePath.split("/").pop() || "";
+      fileExtension = fileName.includes(".")
+        ? filePath.split(".").pop() || ""
+        : "";
       currentlyOpenFileUri = vscode.Uri.file(filePath);
     } else {
       const document = vscode.window.activeTextEditor?.document;
@@ -58,7 +59,7 @@ export const triggerTestCreation = async (
       integrationTestFramework = defaultIntegrationTestFramework;
     }
 
-    addJsTestContent(
+    await addJsTestContent(
       text,
       currentlyOpenFileUri,
       unitTestFramework,
