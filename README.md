@@ -4,7 +4,7 @@ Add JS Test is an extension that quickly adds a template test file for a javascr
 
 # Usage
 
-![How to use Add JS Test](.public/add-js-test-demo.gif)
+<a href=".public/add-js-test-demo.gif" target="_blank">![How to use Add JS Test](.public/add-js-test-demo.gif)</a>
 
 # What?
 
@@ -17,7 +17,7 @@ export const myFatArrowFunction = () => {
 };
 ```
 
-If you right-click on the file that contains this module and select Add JS Test, the following file will be generated:
+If you right-click on the file in the explorer and select Add JS Test, the following file will be generated:
 
 ```ts
 // my-fat-arrow-function.test.ts
@@ -33,11 +33,15 @@ describe("myFatArrowFunction", () => {
 
 Now, were you to use JavaScript instead of TypeScript, the appropriate extension will be used. And if you use jest or mocha instead of vitest, that will be imported.
 
+If you want to explicitly set which test framework to use, or have the files be called x.spec.ts instead of x.test.ts, these things are configurable in your settings. Just open Settings and search for add-js-test to view and edit them:
+
+<a href=".public/settings.png" target="_blank">![The keyboard shortcuts for add-js-test](.public/settings.png)</a>
+
 # Key bindings
 
 The command is automatically bound to the short cut `ctrl+shift+t`, but can easily be changed by going to File -> Preferences -> Keyboard Shortcuts and search for add-js-test, this should give you this view:
 
-![The keyboard shortcuts for add-js-test](.public/add-keyboard-shortcuts.png)
+<a href=".public/add-keyboard-shortcuts.png" target="_blank">![The keyboard shortcuts for add-js-test](.public/add-keyboard-shortcuts.png)</a>
 
 To change this binding, right-click on the row and select `Change keybinding` and enter the new command you want.
 
