@@ -7,7 +7,6 @@ export const activate = (context: vscode.ExtensionContext) => {
     let disposableJSTS = vscode.commands.registerCommand(
       "add-js-test.addJsTest",
       async (commandInfo) => {
-        logger().log("Add Test command triggered.");
         triggerTestCreation("unit", commandInfo?.fsPath);
       }
     );
@@ -17,7 +16,6 @@ export const activate = (context: vscode.ExtensionContext) => {
     let disposableJSXTSX = vscode.commands.registerCommand(
       "add-js-test.addReactComponentTest",
       async (commandInfo) => {
-        logger().log("Add React Component Test command triggered.");
         triggerTestCreation("integration", commandInfo?.fsPath);
       }
     );

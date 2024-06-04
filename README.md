@@ -1,10 +1,10 @@
-# Add Test README
+# Add JS Test README
 
-Add Test is an extension that quickly adds a template test file for a javascript/typescript-module using either jest, vitest or mocha/chai. By right-clicking on a module and selecting Add Test this extension will analyze your file and create the appropriate, corresponding test file for your module.
+Add JS Test is an extension that quickly adds a template test file for a javascript/typescript-module using either jest, vitest or mocha/chai. By right-clicking on a module and selecting Add JS Test this extension will analyze your file and create the appropriate, corresponding test file for your module.
 
 # Usage
 
-![How to use Add Test](.public/add-js-test-hello-world.gif)
+![How to use Add JS Test](.public/add-js-test-hello-world.gif)
 
 # What?
 
@@ -17,7 +17,7 @@ export const myFatArrowFunction = () => {
 };
 ```
 
-If you right-click on the file that contains this module and select Add Test, the following file will be generated:
+If you right-click on the file that contains this module and select Add JS Test, the following file will be generated:
 
 ```ts
 // my-fat-arrow-function.test.ts

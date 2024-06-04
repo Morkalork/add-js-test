@@ -12,14 +12,18 @@
   ],
   "keywords": [
     "test",
-    "test framework",
     "testing",
+    "test framework",
     "jest",
     "vitest",
     "mocha",
     "typescript",
     "javascript",
-    "ts"
+    "js",
+    "ts",
+    "jsx",
+    "tsx",
+    "react"
   ],
   "repository": {
     "type": "git",
@@ -33,7 +37,7 @@
   "contributes": {
     "configuration": {
       "type": "object",
-      "title": "Add Test",
+      "title": "Add JS Test",
       "properties": {
         "addJsTest.testFileSuffix": {
           "type": "string",

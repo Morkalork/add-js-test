@@ -12,7 +12,7 @@ let _logger: Logger;
 
 export const logger = (): Logger => {
   if (!outputChannel) {
-    outputChannel = vscode.window.createOutputChannel("Add Test");
+    outputChannel = vscode.window.createOutputChannel("Add JS Test");
     _logger = {
       log: (message: string) => {
         outputChannel.appendLine(message);
