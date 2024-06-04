@@ -4,7 +4,7 @@ Add JS Test is an extension that quickly adds a template test file for a javascr
 
 # Usage
 
-![How to use Add JS Test](.public/add-js-test-hello-world.gif)
+![How to use Add JS Test](.public/add-js-test-demo.gif)
 
 # What?
 
