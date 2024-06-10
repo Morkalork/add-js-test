@@ -2,11 +2,13 @@
 
 Add JS Test is an extension that quickly adds a template test file for a javascript/typescript-module using either jest, vitest or mocha/chai. By right-clicking on a module and selecting Add JS Test this extension will analyze your file and create the appropriate, corresponding test file for your module.
 
-# Usage
+In addition to standard unit tests the extension also supports adding tests for react components, mainly using @testing-library/react (but also Enzyme for legacy projects).
+
+## Usage
 
 <a href=".public/add-js-test-demo.gif" target="_blank">![How to use Add JS Test](.public/add-js-test-demo.gif)</a>
 
-# What?
+## What?
 
 Let's say that you have this file in your project:
 
@@ -33,11 +35,13 @@ describe("myFatArrowFunction", () => {
 
 Now, were you to use JavaScript instead of TypeScript, the appropriate extension will be used. And if you use jest or mocha instead of vitest, that will be imported.
 
+## Settings
+
 If you want to explicitly set which test framework to use, or have the files be called x.spec.ts instead of x.test.ts, these things are configurable in your settings. Just open Settings and search for add-js-test to view and edit them:
 
 <a href=".public/settings.png" target="_blank">![The keyboard shortcuts for add-js-test](.public/settings.png)</a>
 
-# Key bindings
+## Key bindings
 
 The command is automatically bound to the short cut `ctrl+shift+t`, but can easily be changed by going to File -> Preferences -> Keyboard Shortcuts and search for add-js-test, this should give you this view:
 
@@ -45,7 +49,7 @@ The command is automatically bound to the short cut `ctrl+shift+t`, but can easi
 
 To change this binding, right-click on the row and select `Change keybinding` and enter the new command you want.
 
-# Development
+## Development
 
 If you want to fork this, or contribute, just clone the repository and:
 
@@ -65,7 +69,7 @@ Or just make your changes and, if you're running VS Code while developing this, 
 
 There are test files available in the ./test-suite-folder in this repo, you can use these to test various use-cases. And if you're missing a case, then new additions are always welcome!
 
-# Documentation
+## Documentation
 
 Here are some links to documentation that may be of assistance:
 
