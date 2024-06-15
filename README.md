@@ -12,16 +12,16 @@ In addition to standard unit tests the extension also supports adding tests for 
 
 Let's say that you have this file in your project:
 
-```ts
+```js
 // my-fat-arrow-function.ts
 export const myFatArrowFunction = () => {
   return "Hello, World!";
 };
 ```
 
-If you right-click on the file in the explorer and select Add JS Test, the following file will be generated:
+If you right-click on the file in the explorer and select Add Test, the following file will be generated:
 
-```ts
+```js
 // my-fat-arrow-function.test.ts
 import { myFatArrowFunction } from "./my-fat-arrow-function";
 import { describe, expect, it } from "vitest";
@@ -35,9 +35,35 @@ describe("myFatArrowFunction", () => {
 
 Now, were you to use JavaScript instead of TypeScript, the appropriate extension will be used. And if you use jest or mocha instead of vitest, that will be imported.
 
+Likewise, if you have a JSX/TSX file that looks like this:
+
+```js
+// my-fat-component.ts
+export const MyFatComponent = () => {
+  return <h1>Hello, World!</h1>
+};
+```
+
+Then you right-click on this file and select Add React Component Test and it will add a test similar to this:
+
+```js
+import { MyFatComponent } from "./my-fat-component";
+import { render, screen } from "@testing-library/react";
+import "@testing-library/jest-dom";
+
+describe("should render", async () => {
+  it("should render", () => {
+    render(<MyFatComponent />);
+    screen.debug();
+  });
+});
+```
+
 ## Settings
 
-If you want to explicitly set which test framework to use, or have the files be called x.spec.ts instead of x.test.ts, these things are configurable in your settings. Just open Settings and search for add-js-test to view and edit them:
+By default, this extension will try to figure out which test framework to use by analyzing your package.json file. In case this file cannot be found, parsed or in other ways used, it will default to jest for unit tests and @testing-library/react for component testing.
+
+If you, however, want to explicitly set which test framework to use, or have the files be called x.spec.ts instead of x.test.ts, these things are configurable in your settings. Just open VS Code Settings and search for add-js-test to view and edit them:
 
 <a href=".public/settings.png" target="_blank">![The keyboard shortcuts for add-js-test](.public/settings.png)</a>
 
