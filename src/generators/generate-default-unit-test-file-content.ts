@@ -1,5 +1,5 @@
-import { FunctionNameDefinition } from "../utils/get-function-or-class-name";
-import { SupportedUnitTestFramework } from "../get-unit-test-framework";
+import { FunctionNameDefinition } from "../ast-parsing/get-function-or-class-name";
+import { SupportedUnitTestFramework } from "../workspace-tooling/get-unit-test-framework";
 import { generateUnitTestSupportImports } from "./generate-unit-test-support-imports";
 
 export const generateDefaultUnitTestFileContent = (

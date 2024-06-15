@@ -1,8 +1,8 @@
 import { getRootWorkspaceFolder } from "./get-root-workspace-folder";
 import { describe, expect, it, beforeEach } from "@jest/globals";
 import * as vscode from "vscode";
-import { logger } from "./logger";
-import { addGetterToReadonlyProps } from "./__TEST__/add-getter-to-readonly-prop";
+import { logger } from "../utils/logger";
+import { addGetterToReadonlyProps } from "../utils/__TEST__/add-getter-to-readonly-prop";
 
 jest.mock("vscode", () => ({
   workspace: {

@@ -14,10 +14,10 @@ import {
   SafeParseSuccess,
   ZodError,
 } from "zod";
-import * as loggingTools from "./logger";
+import * as loggingTools from "../utils/logger";
 import * as configurationDependency from "./get-configuration";
 import { getPackageJson } from "./get-package-json";
-import { createPackageJson } from "./create-package-json";
+import { createPackageJson } from "../utils/create-package-json";
 
 jest.mock("./get-configuration");
 jest.mock("./get-package-json");

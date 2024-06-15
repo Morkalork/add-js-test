@@ -1,6 +1,6 @@
 import { describe, expect, it } from "@jest/globals";
 import { getFunctionOrClassName } from "./get-function-or-class-name";
-import * as testCases from "./__TEST__/export-declaration-templates";
+import * as testCases from "../utils/__TEST__/export-declaration-templates";
 
 describe("getFunctionOrClassName", () => {
   type CodeTestProps = {

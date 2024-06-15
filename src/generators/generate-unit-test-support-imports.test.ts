@@ -1,6 +1,6 @@
 import { describe, expect, it } from "@jest/globals";
 import { TestCaseProps } from "../utils/types";
-import { SupportedUnitTestFramework } from "../get-unit-test-framework";
+import { SupportedUnitTestFramework } from "../workspace-tooling/get-unit-test-framework";
 import { generateUnitTestSupportImports } from "./generate-unit-test-support-imports";
 
 describe("generateUnitTestSupportImports", () => {

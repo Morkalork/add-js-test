@@ -1,8 +1,8 @@
 import * as vscode from "vscode";
 import { getRootWorkspaceFolder } from "./get-root-workspace-folder";
-import { PackageJson } from "./types";
-import { logger } from "./logger";
-import { createPackageJson } from "./create-package-json";
+import { PackageJson } from "../utils/types";
+import { logger } from "../utils/logger";
+import { createPackageJson } from "../utils/create-package-json";
 import { getConfiguration } from "./get-configuration";
 
 export const getPackageJson = async (): Promise<PackageJson> => {

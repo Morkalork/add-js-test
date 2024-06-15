@@ -1,4 +1,4 @@
-import { SupportedUnitTestFramework } from "../get-unit-test-framework";
+import { SupportedUnitTestFramework } from "../workspace-tooling/get-unit-test-framework";
 
 export const generateUnitTestSupportImports = (
   name: string,

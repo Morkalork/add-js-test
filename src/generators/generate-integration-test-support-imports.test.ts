@@ -1,7 +1,7 @@
 import { describe, expect, it } from "@jest/globals";
 import { generateIntegrationTestSupportImports } from "./generate-integrations-test-support-imports";
 import { TestCaseProps } from "../utils/types";
-import { SupportedIntegrationTestFramework } from "../get-integration-test-framework";
+import { SupportedIntegrationTestFramework } from "../workspace-tooling/get-integration-test-framework";
 
 describe("generateIntegrationTestSupportImports", () => {
   it.each<TestCaseProps<SupportedIntegrationTestFramework>>`

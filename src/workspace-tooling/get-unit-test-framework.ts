@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { getTestFramework } from "./utils/get-test-framework";
+import { getTestFramework } from "./get-test-framework";
 
 const unitTestFrameworks = ["unknown", "jest", "mocha", "vitest"] as const;
 

@@ -1,5 +1,5 @@
 import * as vscode from "vscode";
-import { logger } from "./logger";
+import { logger } from "../utils/logger";
 
 export const getRootWorkspaceFolder = () => {
   if (!vscode.workspace.workspaceFolders) {

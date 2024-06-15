@@ -1,9 +1,15 @@
 import * as vscode from "vscode";
 import path from "path";
 
+type ReturnData = {
+  text: string;
+  currentlyOpenFileUri: vscode.Uri;
+  fileExtension?: string;
+};
+
 export const parseTextDocument = async (
   doc: vscode.TextDocument | undefined
-) => {
+): Promise<ReturnData> => {
   if (!doc) {
     throw new Error("currently open file uri could not be determined.");
   }
@@ -18,5 +24,5 @@ export const parseTextDocument = async (
 
   const currentlyOpenFileUri = doc.uri;
 
-  return { text, fileExtension, currentlyOpenFileUri };
+  return { text, currentlyOpenFileUri, fileExtension };
 };

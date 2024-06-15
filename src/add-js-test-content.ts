@@ -2,13 +2,13 @@ import * as vscode from "vscode";
 import {
   FunctionNameDefinition,
   getFunctionOrClassName,
-} from "./utils/get-function-or-class-name";
+} from "./ast-parsing/get-function-or-class-name";
 import path, { dirname } from "path";
 import { generateDefaultUnitTestFileContent } from "./generators/generate-default-unit-test-file-content";
-import { SupportedIntegrationTestFramework } from "./get-integration-test-framework";
+import { SupportedIntegrationTestFramework } from "./workspace-tooling/get-integration-test-framework";
 import { TestTypes } from "./types";
 import { generateDefaultIntegrationTestFileContent } from "./generators/generate-default-integration-test-file-content";
-import { SupportedUnitTestFramework } from "./get-unit-test-framework";
+import { SupportedUnitTestFramework } from "./workspace-tooling/get-unit-test-framework";
 import { logger } from "./utils/logger";
 
 export const addJsTestContent = async (

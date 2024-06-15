@@ -1,4 +1,4 @@
-import { SupportedIntegrationTestFramework } from "../get-integration-test-framework";
+import { SupportedIntegrationTestFramework } from "../workspace-tooling/get-integration-test-framework";
 
 export const generateIntegrationTestSupportImports = (
   name: string,

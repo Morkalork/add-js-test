@@ -3,9 +3,9 @@ import { describe, expect, it } from "@jest/globals";
 import * as configurationDependency from "./get-configuration";
 import { getRootWorkspaceFolder } from "./get-root-workspace-folder";
 import { Uri, workspace } from "vscode";
-import { makeWorkspaceFolder } from "./__TEST__/make-objects";
-import { createPackageJson } from "./create-package-json";
-import * as loggingTools from "./logger";
+import { makeWorkspaceFolder } from "../utils/__TEST__/make-objects";
+import { createPackageJson } from "../utils/create-package-json";
+import * as loggingTools from "../utils/logger";
 
 jest.mock("./get-configuration");
 jest.mock("./get-root-workspace-folder");

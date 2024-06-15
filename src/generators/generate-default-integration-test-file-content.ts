@@ -1,5 +1,5 @@
-import { SupportedIntegrationTestFramework } from "../get-integration-test-framework";
-import { FunctionNameDefinition } from "../utils/get-function-or-class-name";
+import { SupportedIntegrationTestFramework } from "../workspace-tooling/get-integration-test-framework";
+import { FunctionNameDefinition } from "../ast-parsing/get-function-or-class-name";
 import { generateIntegrationTestSupportImports } from "./generate-integrations-test-support-imports";
 
 export const generateDefaultIntegrationTestFileContent = (

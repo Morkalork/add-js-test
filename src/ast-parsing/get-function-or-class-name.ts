@@ -7,7 +7,7 @@ import {
   VariableDeclaration,
 } from "@babel/types";
 import { generateAST } from "./generate-ast";
-import { getTypeSafeNode } from "./get-type-safe-node";
+import { getTypeSafeNode } from "../utils/get-type-safe-node";
 
 export type FunctionNameDefinition = {
   name: string;

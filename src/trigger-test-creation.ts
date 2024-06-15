@@ -1,8 +1,8 @@
 import * as vscode from "vscode";
 import fs from "fs";
 import { addJsTestContent } from "./add-js-test-content";
-import { getIntegrationTestFramework } from "./get-integration-test-framework";
-import { getUnitTestFramework } from "./get-unit-test-framework";
+import { getIntegrationTestFramework } from "./workspace-tooling/get-integration-test-framework";
+import { getUnitTestFramework } from "./workspace-tooling/get-unit-test-framework";
 import { TestTypes } from "./types";
 import { parseTextDocument } from "./utils/parse-text-document";
 import { logger } from "./utils/logger";
