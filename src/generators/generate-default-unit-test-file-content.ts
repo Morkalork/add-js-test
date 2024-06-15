@@ -1,8 +1,8 @@
-import { FunctionNameDefinition } from "./utils/get-function-or-class-name";
-import { SupportedUnitTestFramework } from "./get-unit-test-framework";
-import { getUnitTestSupportImports } from "./utils/get-unit-test-support-imports";
+import { FunctionNameDefinition } from "../utils/get-function-or-class-name";
+import { SupportedUnitTestFramework } from "../get-unit-test-framework";
+import { generateUnitTestSupportImports } from "./generate-unit-test-support-imports";
 
-export const getDefaultUnitTestFileContent = (
+export const generateDefaultUnitTestFileContent = (
   testFramework: SupportedUnitTestFramework,
   functionName: FunctionNameDefinition,
   fileName: string,
@@ -12,7 +12,7 @@ export const getDefaultUnitTestFileContent = (
   const { name, isClass, isDefault } = functionName;
   const functionDeclaration = isClass ? `new ${name}()` : `${name}()`;
   const imports = addImports
-    ? getUnitTestSupportImports(
+    ? generateUnitTestSupportImports(
         name,
         fileName,
         testFramework,

@@ -1,6 +1,6 @@
 import { SupportedIntegrationTestFramework } from "../get-integration-test-framework";
 
-export const getIntegrationTestSupportImports = (
+export const generateIntegrationTestSupportImports = (
   name: string,
   fileName: string,
   unitTestFramework: SupportedIntegrationTestFramework,

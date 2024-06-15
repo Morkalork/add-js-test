@@ -4,10 +4,10 @@ import {
   getFunctionOrClassName,
 } from "./utils/get-function-or-class-name";
 import path, { dirname } from "path";
-import { getDefaultUnitTestFileContent } from "./get-default-unit-test-file-content";
+import { generateDefaultUnitTestFileContent } from "./generators/generate-default-unit-test-file-content";
 import { SupportedIntegrationTestFramework } from "./get-integration-test-framework";
 import { TestTypes } from "./types";
-import { getDefaultIntegrationTestFileContent } from "./get-default-integration-test-file-content";
+import { generateDefaultIntegrationTestFileContent } from "./generators/generate-default-integration-test-file-content";
 import { SupportedUnitTestFramework } from "./get-unit-test-framework";
 import { logger } from "./utils/logger";
 
@@ -61,7 +61,7 @@ export const addJsTestContent = async (
   let content: string = "";
   switch (testType) {
     case "unit":
-      content = getDefaultUnitTestFileContent(
+      content = generateDefaultUnitTestFileContent(
         unitTestFramework,
         functionOrComponentName,
         fileName,
@@ -70,7 +70,7 @@ export const addJsTestContent = async (
       );
       break;
     case "integration":
-      content = getDefaultIntegrationTestFileContent(
+      content = generateDefaultIntegrationTestFileContent(
         integrationTestFramework,
         functionOrComponentName,
         fileName,

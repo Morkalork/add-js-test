@@ -1,8 +1,8 @@
-import { SupportedIntegrationTestFramework } from "./get-integration-test-framework";
-import { FunctionNameDefinition } from "./utils/get-function-or-class-name";
-import { getIntegrationTestSupportImports } from "./utils/get-integrations-test-support-imports";
+import { SupportedIntegrationTestFramework } from "../get-integration-test-framework";
+import { FunctionNameDefinition } from "../utils/get-function-or-class-name";
+import { generateIntegrationTestSupportImports } from "./generate-integrations-test-support-imports";
 
-export const getDefaultIntegrationTestFileContent = (
+export const generateDefaultIntegrationTestFileContent = (
   integrationTestFramework: SupportedIntegrationTestFramework,
   functionName: FunctionNameDefinition,
   fileName: string,
@@ -12,7 +12,7 @@ export const getDefaultIntegrationTestFileContent = (
   const { name, isDefault } = functionName;
 
   const imports = addImports
-    ? getIntegrationTestSupportImports(
+    ? generateIntegrationTestSupportImports(
         name,
         fileName,
         integrationTestFramework,

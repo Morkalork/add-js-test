@@ -1,9 +1,9 @@
 import { describe, expect, it } from "@jest/globals";
-import { TestCaseProps } from "./types";
+import { TestCaseProps } from "../utils/types";
 import { SupportedUnitTestFramework } from "../get-unit-test-framework";
-import { getUnitTestSupportImports } from "./get-unit-test-support-imports";
+import { generateUnitTestSupportImports } from "./generate-unit-test-support-imports";
 
-describe("getUnitTestSupportImports", () => {
+describe("generateUnitTestSupportImports", () => {
   it.each<TestCaseProps<SupportedUnitTestFramework>>`
     name      | fileName      | testFramework | useCommonJS | isDefault | expected1                                 | expected2
     ${"name"} | ${"fileName"} | ${"jest"}     | ${false}    | ${false}  | ${'import { name } from "./fileName";'}   | ${'from "@jest/globals";'}
@@ -23,7 +23,7 @@ describe("getUnitTestSupportImports", () => {
       expected1,
       expected2,
     }) => {
-      const result = getUnitTestSupportImports(
+      const result = generateUnitTestSupportImports(
         name,
         fileName,
         testFramework,
