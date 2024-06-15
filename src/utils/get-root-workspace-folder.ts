@@ -8,6 +8,7 @@ export const getRootWorkspaceFolder = () => {
   }
 
   if (vscode.workspace.workspaceFolders.length > 1) {
+    // TODO: should we support this? How would we even handle it?
     logger().showErrorMessage(
       "This extension does not support multi-root workspaces."
     );

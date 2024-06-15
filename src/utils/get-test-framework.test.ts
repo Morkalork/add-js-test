@@ -1,8 +1,13 @@
 import { getTestFramework } from "./get-test-framework";
-import { describe, expect, it, beforeEach, jest } from "@jest/globals";
-import * as rootWorkspaceFolderFuncs from "./get-root-workspace-folder";
-import { workspace, Uri } from "vscode";
-import { makeWorkspaceFolder } from "./__TEST__/make-objects";
+import {
+  describe,
+  expect,
+  it,
+  beforeEach,
+  afterEach,
+  jest,
+} from "@jest/globals";
+import { workspace } from "vscode";
 import {
   SafeParseError,
   SafeParseReturnType,
@@ -10,13 +15,20 @@ import {
   ZodError,
 } from "zod";
 import * as loggingTools from "./logger";
+import * as configurationDependency from "./get-configuration";
+import { getPackageJson } from "./get-package-json";
+import { createPackageJson } from "./create-package-json";
+
+jest.mock("./get-configuration");
+jest.mock("./get-package-json");
+
+const getConfigurationMock =
+  configurationDependency.getConfiguration as jest.Mock;
+const getPackageJsonMock = getPackageJson as jest.Mock;
 
 describe("getTestFramework", () => {
-  const getRootWorkspaceFolderMock = jest.spyOn(
-    rootWorkspaceFolderFuncs,
-    "getRootWorkspaceFolder"
-  );
-  const configurationSpy = jest.spyOn(workspace, "getConfiguration");
+  const configurationGetter = jest.fn();
+
   const successfulParseSuccess: SafeParseSuccess<string> = {
     success: true,
     data: "jest",
@@ -28,13 +40,11 @@ describe("getTestFramework", () => {
 
   const testParser =
     jest.fn<(testData: unknown) => SafeParseReturnType<unknown, string>>();
-  const configuration = {
-    get: jest.fn(),
-    has: jest.fn(),
-    inspect: jest.fn(),
-    update: jest.fn(),
-  };
+
   beforeEach(() => {
+    getConfigurationMock.mockReturnValue({
+      get: configurationGetter,
+    });
     const loggingToolsMock = jest.spyOn(loggingTools, "logger");
     loggingToolsMock.mockReturnValue({
       showErrorMessage: jest.fn(),
@@ -42,18 +52,14 @@ describe("getTestFramework", () => {
       log: jest.fn(),
       error: jest.fn(),
     });
-    configurationSpy.mockReturnValue({
-      get: jest.fn(),
-      has: () => true,
-      inspect: () => ({ key: "" }),
-      update: () => Promise.resolve(),
-    });
-    testParser.mockReset();
-    getRootWorkspaceFolderMock.mockReset();
+  });
+  afterEach(() => {
+    jest.resetAllMocks();
   });
 
   it("should return the configured value if available", async () => {
-    configuration.get.mockReturnValue("jest");
+    configurationGetter.mockReturnValue("jest");
+
     testParser.mockReturnValueOnce(successfulParseSuccess);
 
     const result = await getTestFramework(
@@ -65,65 +71,27 @@ describe("getTestFramework", () => {
     expect(result).toBe("jest");
   });
 
-  it("should return the default value if no root workspace folder can be found", async () => {
-    configuration.get.mockReturnValue("");
-    testParser.mockReturnValueOnce(failedParseSuccess);
-    getRootWorkspaceFolderMock.mockReturnValue(undefined);
-    const result = await getTestFramework(
-      "unit",
-      testParser,
-      ["vitest", "jest", "mocha"],
-      "vitestDefault"
-    );
-    expect(result).toBe("vitestDefault");
-  });
-
   it("should return default value if package.json cannot be read", async () => {
-    configuration.get.mockReturnValue("");
+    configurationGetter.mockReturnValue("");
     testParser.mockReturnValueOnce(failedParseSuccess);
-    getRootWorkspaceFolderMock.mockReturnValue(makeWorkspaceFolder());
-    jest.spyOn(workspace.fs, "readFile").mockImplementation(() => {
-      throw new Error();
-    });
+    getPackageJsonMock.mockImplementation(async () => createPackageJson());
 
     const result = await getTestFramework(
       "unit",
       testParser,
       ["vitest", "jest", "mocha"],
       "vitestDefault"
-    );
-    expect(result).toBe("vitestDefault");
-  });
-
-  it("should return default value if package.json is not available", async () => {
-    configuration.get.mockReturnValue("");
-    testParser.mockReturnValueOnce(failedParseSuccess);
-    getRootWorkspaceFolderMock.mockReturnValue(
-      makeWorkspaceFolder(Uri.file("test"))
-    );
-    const readFileMock = jest.fn(() =>
-      Promise.resolve(Buffer.from(JSON.stringify({ dependencies: {} })))
-    );
-    jest.spyOn(workspace.fs, "readFile").mockImplementation(readFileMock);
-
-    const result = await getTestFramework(
-      "unit",
-      testParser,
-      ["vitest", "jest", "mocha"],
-      "vitestDefault"
-    );
-    expect(readFileMock).toBeCalledWith(
-      expect.objectContaining({ path: "/test/package.json" })
     );
     expect(result).toBe("vitestDefault");
   });
 
   it("should return the framework from the package.json if it exists", async () => {
-    configuration.get.mockReturnValue("");
+    configurationGetter.mockReturnValue("");
     testParser.mockReturnValueOnce(failedParseSuccess);
-    getRootWorkspaceFolderMock.mockReturnValue(
-      makeWorkspaceFolder(Uri.file("test"))
+    getPackageJsonMock.mockImplementation(async () =>
+      createPackageJson({ jest: "1.0.0" })
     );
+
     const readFileMock = jest.fn(() =>
       Promise.resolve(
         Buffer.from(

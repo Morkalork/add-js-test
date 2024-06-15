@@ -1,6 +1,6 @@
 import { FunctionNameDefinition } from "./utils/get-function-or-class-name";
 import { SupportedUnitTestFramework } from "./get-unit-test-framework";
-import { getUnitTestSupportImports } from "./utils/get-integration-test-support-imports";
+import { getUnitTestSupportImports } from "./utils/get-unit-test-support-imports";
 
 export const getDefaultUnitTestFileContent = (
   testFramework: SupportedUnitTestFramework,

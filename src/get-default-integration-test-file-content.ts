@@ -9,14 +9,15 @@ export const getDefaultIntegrationTestFileContent = (
   useCommonJS: boolean,
   addImports: boolean
 ) => {
-  const { name } = functionName;
+  const { name, isDefault } = functionName;
 
   const imports = addImports
     ? getIntegrationTestSupportImports(
         name,
         fileName,
         integrationTestFramework,
-        useCommonJS
+        useCommonJS,
+        !!isDefault
       )
     : "";
 
