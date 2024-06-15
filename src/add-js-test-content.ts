@@ -70,7 +70,7 @@ export const addJsTestContent = async (
       );
       break;
     case "integration":
-      content = generateDefaultIntegrationTestFileContent(
+      content = await generateDefaultIntegrationTestFileContent(
         integrationTestFramework,
         functionOrComponentName,
         fileName,

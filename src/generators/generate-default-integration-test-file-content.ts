@@ -2,7 +2,7 @@ import { SupportedIntegrationTestFramework } from "../workspace-tooling/get-inte
 import { FunctionNameDefinition } from "../ast-parsing/get-function-or-class-name";
 import { generateIntegrationTestSupportImports } from "./generate-integrations-test-support-imports";
 
-export const generateDefaultIntegrationTestFileContent = (
+export const generateDefaultIntegrationTestFileContent = async (
   integrationTestFramework: SupportedIntegrationTestFramework,
   functionName: FunctionNameDefinition,
   fileName: string,
@@ -12,7 +12,7 @@ export const generateDefaultIntegrationTestFileContent = (
   const { name, isDefault } = functionName;
 
   const imports = addImports
-    ? generateIntegrationTestSupportImports(
+    ? await generateIntegrationTestSupportImports(
         name,
         fileName,
         integrationTestFramework,

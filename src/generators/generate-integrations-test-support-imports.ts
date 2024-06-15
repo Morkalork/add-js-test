@@ -1,6 +1,7 @@
 import { SupportedIntegrationTestFramework } from "../workspace-tooling/get-integration-test-framework";
+import { getPackageJson } from "../workspace-tooling/get-package-json";
 
-export const generateIntegrationTestSupportImports = (
+export const generateIntegrationTestSupportImports = async (
   name: string,
   fileName: string,
   unitTestFramework: SupportedIntegrationTestFramework,
@@ -9,7 +10,21 @@ export const generateIntegrationTestSupportImports = (
 ) => {
   const componentName = isDefault ? name : `{ ${name} }`;
 
-  const baseImport = useCommonJS
+  let baseImport = "";
+
+  const packageJson = await getPackageJson();
+  const reactVersion =
+    packageJson.dependencies?.react || packageJson.devDependencies?.react;
+  const unknownReactVersion = !reactVersion;
+  const reactVersionLessThan17 = parseFloat(reactVersion) < 17;
+  if (unknownReactVersion || reactVersionLessThan17) {
+    // React 16 and below requires a React import
+    baseImport += useCommonJS
+      ? `const React = require("react");\n`
+      : `import React from "react";\n`;
+  }
+
+  baseImport += useCommonJS
     ? `const ${componentName} = require("./${fileName}");\n`
     : `import ${componentName} from "./${fileName}";\n`;
 
