@@ -98,6 +98,18 @@
           "command": "add-js-test.addReactComponentTest",
           "group": "navigation"
         }
+      ],
+      "editor/context": [
+        {
+          "when": "resourceLangId == typescript || resourceLangId == javascript",
+          "command": "add-js-test.addJsTest",
+          "group": "navigation"
+        },
+        {
+          "when": "resourceLangId == typescriptreact || resourceLangId == javascriptreact",
+          "command": "add-js-test.addReactComponentTest",
+          "group": "navigation"
+        }
       ]
     },
     "keybindings": [
