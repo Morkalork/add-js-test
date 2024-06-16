@@ -68,6 +68,11 @@
           "type": "string",
           "default": "",
           "description": "If your package.json is not in the root of your project, you can specify a subpath here. If you have a monorepo, you can specify the path to the package.json of the module you want to test."
+        },
+        "addJsTest.testFolder": {
+          "type": "string",
+          "default": "",
+          "description": "The folder to put the test files in, conventionally named '__tests__'. If it doesn't exist, it will be created. If omitted the test file will be placed next to the source file."
         }
       }
     },

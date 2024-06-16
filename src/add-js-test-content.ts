@@ -10,6 +10,7 @@ import { TestTypes } from "./types";
 import { generateDefaultIntegrationTestFileContent } from "./generators/generate-default-integration-test-file-content";
 import { SupportedUnitTestFramework } from "./workspace-tooling/get-unit-test-framework";
 import { logger } from "./utils/logger";
+import { getConfiguration } from "./workspace-tooling/get-configuration";
 
 export const addJsTestContent = async (
   code: string,
@@ -32,9 +33,13 @@ export const addJsTestContent = async (
     }
   }
 
-  const configuration = vscode.workspace.getConfiguration("addJsTest");
+  const configuration = getConfiguration();
   const workspaceEdit = new vscode.WorkspaceEdit();
-  const dirPath = dirname(folder.fsPath);
+  let dirPath = dirname(folder.fsPath);
+  const testFolder = configuration.get<string>("testFolder");
+  if (testFolder) {
+    dirPath = path.join(dirPath, testFolder);
+  }
   const folderPath = vscode.Uri.file(dirPath);
   const fileName = path
     .basename(folder.fsPath)
