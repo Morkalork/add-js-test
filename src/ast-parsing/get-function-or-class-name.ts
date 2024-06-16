@@ -28,9 +28,14 @@ export const getFunctionOrClassName = (
 
   const tooFewExports = exportStatements.length < 1;
   const tooManyExports = exportStatements.length > 1;
+  if (tooFewExports) {
+    throw new Error(
+      "Nothing exported was found, please locate a file with an export to use this extension."
+    );
+  }
   if (tooFewExports || tooManyExports) {
     throw new Error(
-      "This plugin only works with one exported function. Please remove any other function exports."
+      "This extension only works with one exported function. Please remove any other function exports."
     );
   }
 
@@ -41,7 +46,7 @@ export const getFunctionOrClassName = (
   if (!acceptableExportedTypes.includes(exportStatements[0].type)) {
     // TODO: is this me being anal retentive? Can this never happen?
     throw new Error(
-      "This plugin only works with named or default exports. Please add a named or default export to the function or class."
+      "This extension only works with named or default exports. Please add a named or default export to the function or class."
     );
   }
 
@@ -57,7 +62,7 @@ export const getFunctionOrClassName = (
   if (exportedFunction.type === "ExportNamedDeclaration") {
     if ((exportedFunction as ExportNamedDeclaration).specifiers.length > 1) {
       throw new Error(
-        "This plugin only works with one exported function. Please remove any other function exports."
+        "This extension only works with one exported function. Please remove any other function exports."
       );
     }
   }
@@ -113,7 +118,7 @@ export const getFunctionOrClassName = (
     const tooManyDeclarations = variableDeclarator.length > 1;
     if (tooFewDeclarations || tooManyDeclarations) {
       throw new Error(
-        "This plugin only works with one exported function. Please remove any other function exports."
+        "This extension only works with one exported function. Please remove any other function exports."
       );
     }
 
