@@ -1,4 +1,5 @@
 import { Node } from "@babel/types";
+import { isDeclarationOf } from "./is-declaration-of";
 
 export const getTypeSafeNode = <T extends Node>(
   node: Node,
@@ -12,5 +13,9 @@ export const getTypeSafeNode = <T extends Node>(
     throw new Error(`Expected ${specificTypeName} but got ${node.type}`);
   }
 
-  return node as T;
+  if (!isDeclarationOf<T>(node, specificTypeName)) {
+    throw new Error(`Expected node to be of type ${specificTypeName}`);
+  }
+
+  return node;
 };
