@@ -1,6 +1,6 @@
 # Add JS Test README
 
-Add JS Test is an extension that quickly adds a template test file for a javascript/typescript-module using either jest, vitest or mocha/chai. By right-clicking on a module and selecting Add JS Test this extension will analyze your file and create the appropriate, corresponding test file for your module.
+Add JS Test is an extension that quickly adds a template test file for a javascript/typescript-module using either jest, vitest or mocha/chai. By right-clicking on a module and selecting Add Test this extension will analyze your file and create the appropriate, corresponding test file for your module.
 
 In addition to standard unit tests the extension also supports adding tests for react components, mainly using @testing-library/react (but also Enzyme for legacy projects).
 
@@ -12,7 +12,7 @@ In addition to standard unit tests the extension also supports adding tests for 
 
 Let's say that you have this file in your project:
 
-```js
+```typescript
 // my-fat-arrow-function.ts
 export const myFatArrowFunction = () => {
   return "Hello, World!";
@@ -21,7 +21,7 @@ export const myFatArrowFunction = () => {
 
 If you right-click on the file in the explorer and select Add Test, the following file will be generated:
 
-```js
+```typescript
 // my-fat-arrow-function.test.ts
 import { myFatArrowFunction } from "./my-fat-arrow-function";
 import { describe, expect, it } from "vitest";
@@ -37,7 +37,7 @@ Now, were you to use JavaScript instead of TypeScript, the appropriate extension
 
 Likewise, if you have a JSX/TSX file that looks like this:
 
-```js
+```javascript
 // my-fat-component.ts
 export const MyFatComponent = () => {
   return <h1>Hello, World!</h1>
@@ -46,7 +46,7 @@ export const MyFatComponent = () => {
 
 Then you right-click on this file and select Add React Component Test and it will add a test similar to this:
 
-```js
+```javascript
 import { MyFatComponent } from "./my-fat-component";
 import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
@@ -63,7 +63,7 @@ describe("should render", async () => {
 
 By default, this extension will try to figure out which test framework to use by analyzing your package.json file. In case this file cannot be found, parsed or in other ways used, it will default to jest for unit tests and @testing-library/react for component testing.
 
-If you, however, want to explicitly set which test framework to use, or have the files be called x.spec.ts instead of x.test.ts, these things are configurable in your settings. Just open VS Code Settings and search for add-js-test to view and edit them:
+If you, however, want to explicitly set which test framework to use, have the files be called x.spec.ts instead of x.test.ts, or change any other setting, these things are configurable in your settings file. Just open VS Code Settings and search for add-js-test to view and edit them:
 
 <a href=".public/settings.png" target="_blank">![The keyboard shortcuts for add-js-test](.public/settings.png)</a>
 
